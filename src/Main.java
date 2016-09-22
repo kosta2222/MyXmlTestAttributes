@@ -6,18 +6,20 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-//import com.kosta.opn.Calc;
+import com.kosta.opn.Calc;
+import java.io.File;
 import org.w3c.dom.NamedNodeMap;
  
  class DomExample {
  
-   public DomExample(){
-//       Calc c=new Calc();
+   public DomExample(String pathname){
+       File f=new File(pathname);
+       Calc c=new Calc();
         try {
             // Создается построитель документа
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             // Создается дерево DOM документа из файла
-            Document document = documentBuilder.parse("data.xml");
+            Document document = documentBuilder.parse(f);
  
             // Получаем корневой элемент
             Node root = document.getDocumentElement();
@@ -28,11 +30,11 @@ import org.w3c.dom.NamedNodeMap;
             NodeList nodes = root.getChildNodes();
             for (int temp = 0; temp < nodes.getLength(); temp++) {
                 Node node = nodes.item(temp);
-//                System.out.println(node.getNodeName());
+
                 if(node.getNodeName().equals("exp")){
                     String s=node.getTextContent();
-//                    double d=c.calculate(c.opn(s));
-//                    System.out.println("Rezultat vichisleniya:"+s+"="+d);
+                    double d=c.calculate(c.opn(s));
+                    System.out.println("Результат вычесления:"+s+"="+d);
                 }
                 else if(node.getNodeName().equals("def")){
                     NamedNodeMap namedNodeMap= node.getAttributes();
@@ -42,19 +44,8 @@ import org.w3c.dom.NamedNodeMap;
                     
                     
                 }
-//                System.out.println(node.getTextContent());
-                // Если нода не текст, то это книга - заходим внутрь
-                if (node.getNodeType() != Node.TEXT_NODE) {
-                    NodeList nodeProps = node.getChildNodes();
-                    for(int j = 0; j < nodeProps.getLength(); j++) {
-                        Node nodeProp = nodeProps.item(j);
-                        // Если нода не текст, то это один из параметров книги - печатаем
-                        if (nodeProp.getNodeType() != Node.TEXT_NODE) {
-//                            System.out.println(nodeProp.getNodeName() + ":" + nodeProp.getChildNodes().item(0).getTextContent());
-                        }
-                    }
-                    System.out.println("===========>>>>");
-                }
+
+              
             }
  
         } catch (ParserConfigurationException ex) {
@@ -72,7 +63,14 @@ import org.w3c.dom.NamedNodeMap;
     
 
 class Main{
+    
 public static void main(String args[]){
-DomExample de=new DomExample();
+ if(args.length==0){
+     System.out.println("usage :Main <file>.xml");   
+ } 
+ else{
+     String pathname=args[0];
+DomExample de=new DomExample(pathname);
+ }
 }
 }
