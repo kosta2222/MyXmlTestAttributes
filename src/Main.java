@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import com.kosta.opn.Calc;
 import java.io.File;
+import java.util.HashMap;
 import org.w3c.dom.NamedNodeMap;
  
  class DomExample {
@@ -15,6 +16,7 @@ import org.w3c.dom.NamedNodeMap;
    public DomExample(String pathname){
        File f=new File(pathname);
        Calc c=new Calc();
+       HashMap<String,String> hm=new HashMap<>();
         try {
             // Создается построитель документа
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -39,8 +41,9 @@ import org.w3c.dom.NamedNodeMap;
                 else if(node.getNodeName().equals("def")){
                     NamedNodeMap namedNodeMap= node.getAttributes();
                     Node nodeFirst=namedNodeMap.getNamedItem("name");
-                    System.out.println("name="+nodeFirst.getNodeValue());
-                    System.out.println("def value:"+node.getTextContent());
+//                    System.out.println("name="+nodeFirst.getNodeValue());
+                    hm.put(nodeFirst.getNodeValue(),node.getTextContent());
+//                    System.out.println("def value:"+node.getTextContent());
                     
                     
                 }
@@ -58,6 +61,7 @@ import org.w3c.dom.NamedNodeMap;
         catch(Exception ex){
             ex.printStackTrace(System.out);
         }
+       System.out.println("HashMap:"+hm);      
 }
  }
     
