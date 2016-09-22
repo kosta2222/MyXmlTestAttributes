@@ -87,7 +87,7 @@ return m.matches();
        StringBuilder sb=new StringBuilder();
        for(int temp=0;temp<expression.length();temp++){
            String tok=String.valueOf(expression.charAt(temp));
-           if(re.test(tok,"[a-z]")){
+           if(re.test(tok,"[A-Z]")){
             String var=hm.get(tok);
             sb.append(var);
            }else

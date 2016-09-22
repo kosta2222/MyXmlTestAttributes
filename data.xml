@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <program>
-<def name="d">12</def>
-<def name="e">138</def>
-<exp>(12+ d)-e+9</exp>
-<def name="f">12</def>
-<def name="g">13.8</def>
-<exp>(12+ f-6)-g+9</exp>
-<exp>(12.9+ f-6)-g+9</exp>
-<def name="s">12.9</def>
-<def name="d">136.8</def>
-<exp>(12- f-6)-g+9</exp>
-<exp>(12.9+ f-6)-g+9</exp>
+<def name="D">12</def>
+<def name="E">138</def>
+<exp>(12+ D)-E+9</exp>
+<def name="F">12</def>
+<def name="G">13.8</def>
+<exp>(12+ F-sin(90)-6)-G+9</exp>
+<exp>(12.9+ F-6)-G+9</exp>
+<def name="S">12.9</def>
+<def name="D">136.8</def>
+<exp>(12- F-6)-G+9</exp>
+<exp>(12.9+ F-6)-G+9</exp>
 
 </program>
