@@ -9,14 +9,29 @@ import org.xml.sax.SAXException;
 import com.kosta.opn.Calc;
 import java.io.File;
 import java.util.HashMap;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.w3c.dom.NamedNodeMap;
+
+class RegExp{
+public boolean test(String testString,String pattern){
+Pattern p=Pattern.compile(pattern);
+Matcher m=p.matcher(testString);
+return m.matches();
+}
+}
+    
+    
+
  
  class DomExample {
+     HashMap<String,String> hm=null;
  
    public DomExample(String pathname){
        File f=new File(pathname);
        Calc c=new Calc();
-       HashMap<String,String> hm=new HashMap<>();
+        hm=new HashMap<>();
         try {
             // Создается построитель документа
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -35,7 +50,11 @@ import org.w3c.dom.NamedNodeMap;
 
                 if(node.getNodeName().equals("exp")){
                     String s=node.getTextContent();
-                    double d=c.calculate(c.opn(s));
+//                    double d=c.calculate(c.opn(s));
+//                    System.out.println("Результат вычесления:"+s+"="+d);
+                        String str=ParseMathematicExpression(s);
+                      System.out.println("exp:"+s);
+                      double d=c.calculate(c.opn(str));
                     System.out.println("Результат вычесления:"+s+"="+d);
                 }
                 else if(node.getNodeName().equals("def")){
@@ -63,6 +82,20 @@ import org.w3c.dom.NamedNodeMap;
         }
        System.out.println("HashMap:"+hm);      
 }
+   public String ParseMathematicExpression(String expression) {
+       RegExp re=new RegExp();
+       StringBuilder sb=new StringBuilder();
+       for(int temp=0;temp<expression.length();temp++){
+           String tok=String.valueOf(expression.charAt(temp));
+           if(re.test(tok,"[a-z]")){
+            String var=hm.get(tok);
+            sb.append(var);
+           }else
+               sb.append(tok);
+           
+       }
+     return sb.toString();
+    }
  }
     
 
